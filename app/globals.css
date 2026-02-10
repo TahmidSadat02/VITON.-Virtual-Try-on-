@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Luxury Neutral Palette */
+  --color-black: #0A0A0A;
+  --color-charcoal: #1A1A1A;
+  --color-dark-gray: #2E2E2E;
+  --color-gray: #6B6B6B;
+  --color-light-gray: #C4C4C4;
+  --color-silver: #E8E8E8;
+  --color-off-white: #F5F5F5;
+  --color-cream: #FAF8F6;
+  --color-white: #FFFFFF;
+  --color-beige: #D4C5B9;
+  --color-tan: #B8A895;
+  
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
+  --primary: #1A1A1A;
+  --accent: #6B6B6B;
+  --border: #E8E8E8;
+  --card-bg: #FFFFFF;
+  --hover: #F5F5F5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0A0A0A;
+    --foreground: #F5F5F5;
+    --card-bg: #1A1A1A;
+    --border: #2E2E2E;
+    --hover: #1A1A1A;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium Button Styles */
+.btn-primary {
+  background: #2A2A2A;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+  background: var(--color-black);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #2A2A2A;
+  border: 1.5px solid #2A2A2A;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background: #2A2A2A;
+  color: white;
+}
+
+/* Premium Card Styles */
+.card-luxury {
+  background: var(--card-bg);
+  border: 1.5px solid #D0D0D0;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-luxury:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  border-color: #A0A0A0;
+}
+
+/* Typography */
+.text-luxury {
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Minimal Shadows */
+.shadow-soft {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-medium {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Dividers */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* Premium Fonts */
+.playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.inter {
+  font-family: 'Inter', sans-serif;
+}
