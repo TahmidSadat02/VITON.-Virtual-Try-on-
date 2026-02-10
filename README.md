@@ -1,101 +1,79 @@
-# Virtual Try-On Platform
+# Virtual Try-On -- Premium Fashion E-Commerce
 
-A full-stack AI-powered virtual try-on web application where users can upload photos, select dresses from a catalog, and generate realistic try-on previews using AI.
+A modern luxury fashion web application with AI-powered virtual try-on technology. Built with Next.js 16, React 19, TypeScript, and Supabase.
 
 ## Features
 
-### User Features
-- 🔐 Secure authentication (Email/Password)
-- 📸 Photo upload with preview
-- 👗 Browse dress catalog with filters
-- 🤖 AI-powered virtual try-on
-- 💬 Custom text prompts for try-on generation
-- ⭐ Save favorites and view history
-- 📱 Fully responsive design
-
-### Admin Features
-- 📊 Analytics dashboard
-- 👗 Dress CRUD operations
-- 👥 User management
-- 📈 Try-on statistics
-- 🎨 Content moderation
+- Gender-based shopping with separate curated collections for Men and Women
+- Luxury minimal UI inspired by Zara and H&M aesthetics
+- Smooth animations and transitions powered by Framer Motion
+- Admin dashboard with full CRUD for product management
+- Secure authentication with role-based access control
+- Fully responsive, mobile-first design
+- Real-time product catalog powered by Supabase
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
-- **Backend**: Supabase (Database + Auth + Storage)
-- **AI**: Hugging Face / Replicate API
-- **Hosting**: Netlify
-- **State Management**: Zustand
-- **Form Handling**: React Hook Form + Zod
+- Frontend: Next.js 16.1.6 (App Router), React 19, TypeScript, Tailwind CSS
+- Animations: Framer Motion
+- Backend: Supabase (PostgreSQL, Auth, Storage)
+- Fonts: Playfair Display + Inter
+
+## Design
+
+Clean, sophisticated interface with a neutral color palette (black, white, beige). Split-screen gender selection landing page, premium product cards with hover effects, sticky navbar with profile dropdown, and elegant page transitions throughout.
 
 ## Getting Started
 
-### Prerequisites
-- Node.js 18+ and npm
-- Supabase account
-- AI API key (Hugging Face or Replicate)
-
-### Installation
-
-1. Install dependencies
-```bash
+```
+git clone https://github.com/TahmidSadat02/VITON.-Virtual-Try-on-.git
+cd VITON.-Virtual-Try-on-
 npm install
 ```
 
-2. Set up environment variables
-```bash
-cp .env.example .env.local
+Create a `.env.local` file with your Supabase credentials:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
 ```
 
-Edit `.env.local` with your credentials:
-- Supabase URL and Anon Key
-- AI API key
-- App configuration
+Run the dev server:
 
-3. Set up Supabase
-   - Create a new Supabase project
-   - Run the SQL script from `supabase-schema.sql` in the SQL Editor
-   - Create storage buckets:
-     - `user-photos` (private, 5MB limit)
-     - `dress-images` (public, 5MB limit)
-     - `tryon-results` (private, 10MB limit)
-
-4. Run the development server
-```bash
+```
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open http://localhost:3000 in your browser.
 
 ## Project Structure
 
 ```
-virtual-tryon/
-├── app/                    # Next.js App Router pages
-│   ├── (auth)/            # Authentication pages
-│   ├── (dashboard)/       # User dashboard
-│   ├── admin/             # Admin panel
-│   └── api/               # API routes
-├── components/            # React components
-├── lib/                   # Utilities and configs
-│   ├── supabase/         # Supabase client & middleware
-│   ├── types/            # TypeScript types
-│   └── utils/            # Helper functions
-└── public/               # Static assets
+app/
+  page.tsx              -- Gender selection landing page
+  men/                  -- Men's shopping page
+  women/                -- Women's shopping page
+  admin/                -- Admin panel for product management
+  (auth)/               -- Login and signup pages
+  api/                  -- API routes
+components/
+  Navbar.tsx            -- Premium sticky navbar with profile dropdown
+  HeroSection.tsx       -- Full-width hero with overlay text
+  ProductCard.tsx       -- Animated product cards
+lib/
+  supabase/             -- Supabase client, server, and middleware
+  types/                -- TypeScript type definitions
+  validations/          -- Zod validation schemas
 ```
 
-## Deployment
+## Admin
 
-### Netlify Deployment
+Admin panel available at `/admin` with email-based role verification. Manage products with image upload, pricing, categories, and gender assignment.
 
-1. Push your code to GitHub
-2. Connect your repository to Netlify
-3. Add environment variables in Netlify dashboard
-4. Deploy!
+## Currency
 
-## Free Tier Limits
+All prices displayed in BDT (Bangladeshi Taka).
 
-- **Supabase**: 500MB database, 1GB storage
-- **Netlify**: 100GB bandwidth, 300 build minutes/month
-- **AI API**: Limited free calls (implement rate limiting)
+## License
+
+MIT
