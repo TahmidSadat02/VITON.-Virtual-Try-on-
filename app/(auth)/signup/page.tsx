@@ -70,59 +70,81 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="bg-white border-2 border-[#D0D0D0] shadow-soft p-12 max-w-md w-full">
+    <div className="rounded-2xl p-12 max-w-md w-full relative overflow-hidden"
+      style={{
+        background: 'rgba(255, 255, 255, 0.07)',
+        backdropFilter: 'blur(40px)',
+        WebkitBackdropFilter: 'blur(40px)',
+        border: '1px solid rgba(255, 255, 255, 0.12)',
+        boxShadow: '0 16px 48px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+      }}>
+      {/* Top edge highlight */}
+      <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }}></div>
+
       <div className="mb-10">
-        <h1 className="text-3xl font-light text-[#0A0A0A] tracking-tight">Create Account</h1>
-        <p className="text-[#6B6B6B] mt-2 font-light">Start your journey</p>
+        <h1 className="text-3xl font-light text-white tracking-tight playfair">Create Account</h1>
+        <p className="text-white/40 mt-2 font-light">Start your journey</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
+          <div className="rounded-lg px-4 py-3 text-sm text-red-300" style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
             {error}
           </div>
         )}
 
         {success && (
-          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 text-sm">
+          <div className="rounded-lg px-4 py-3 text-sm text-green-300" style={{ background: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.2)' }}>
             Account created successfully! Redirecting...
           </div>
         )}
 
         <div>
-          <label htmlFor="fullName" className="block text-xs font-medium text-[#0A0A0A] mb-2 tracking-wide uppercase">
+          <label htmlFor="fullName" className="block text-xs font-medium text-white/60 mb-2 tracking-wide uppercase">
             Full Name
           </label>
           <input
             {...register('fullName')}
             type="text"
             id="fullName"
-            className="w-full px-4 py-3 border-2 border-[#D0D0D0] focus:border-[#2A2A2A] focus:outline-none transition-colors text-sm bg-white text-[#0A0A0A]"
+            className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-white/30 focus:outline-none transition-all"
+            style={{
+              background: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+            }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
             placeholder="John Doe"
           />
           {errors.fullName && (
-            <p className="mt-2 text-xs text-red-600">{errors.fullName.message}</p>
+            <p className="mt-2 text-xs text-red-400">{errors.fullName.message}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-xs font-medium text-[#0A0A0A] mb-2 tracking-wide uppercase">
+          <label htmlFor="email" className="block text-xs font-medium text-white/60 mb-2 tracking-wide uppercase">
             Email
           </label>
           <input
             {...register('email')}
             type="email"
             id="email"
-            className="w-full px-4 py-3 border-2 border-[#D0D0D0] focus:border-[#2A2A2A] focus:outline-none transition-colors text-sm bg-white text-[#0A0A0A]"
+            className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-white/30 focus:outline-none transition-all"
+            style={{
+              background: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+            }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
             placeholder="you@example.com"
           />
           {errors.email && (
-            <p className="mt-2 text-xs text-red-600">{errors.email.message}</p>
+            <p className="mt-2 text-xs text-red-400">{errors.email.message}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-xs font-medium text-[#0A0A0A] mb-2 tracking-wide uppercase">
+          <label htmlFor="password" className="block text-xs font-medium text-white/60 mb-2 tracking-wide uppercase">
             Password
           </label>
           <div className="relative">
@@ -130,24 +152,30 @@ export default function SignupPage() {
               {...register('password')}
               type={showPassword ? 'text' : 'password'}
               id="password"
-              className="w-full px-4 py-3 pr-12 border-2 border-[#D0D0D0] focus:border-[#2A2A2A] focus:outline-none transition-colors text-sm bg-white text-[#0A0A0A]"
+              className="w-full px-4 py-3 pr-12 rounded-lg text-sm text-white placeholder-white/30 focus:outline-none transition-all"
+              style={{
+                background: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+              }}
+              onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6B6B] hover:text-[#0A0A0A] transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
             >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
           {errors.password && (
-            <p className="mt-2 text-xs text-red-600">{errors.password.message}</p>
+            <p className="mt-2 text-xs text-red-400">{errors.password.message}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-xs font-medium text-[#0A0A0A] mb-2 tracking-wide uppercase">
+          <label htmlFor="confirmPassword" className="block text-xs font-medium text-white/60 mb-2 tracking-wide uppercase">
             Confirm Password
           </label>
           <div className="relative">
@@ -155,35 +183,47 @@ export default function SignupPage() {
               {...register('confirmPassword')}
               type={showConfirmPassword ? 'text' : 'password'}
               id="confirmPassword"
-              className="w-full px-4 py-3 pr-12 border-2 border-[#D0D0D0] focus:border-[#2A2A2A] focus:outline-none transition-colors text-sm bg-white text-[#0A0A0A]"
+              className="w-full px-4 py-3 pr-12 rounded-lg text-sm text-white placeholder-white/30 focus:outline-none transition-all"
+              style={{
+                background: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+              }}
+              onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6B6B] hover:text-[#0A0A0A] transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
             >
               {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
           {errors.confirmPassword && (
-            <p className="mt-2 text-xs text-red-600">{errors.confirmPassword.message}</p>
+            <p className="mt-2 text-xs text-red-400">{errors.confirmPassword.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full btn-primary py-3.5 px-4 disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide"
+          className="w-full py-3.5 px-4 disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide text-white font-medium rounded-lg transition-all duration-500 hover:scale-[1.02]"
+          style={{
+            background: 'rgba(255, 255, 255, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.9)'; e.currentTarget.style.color = '#0A0A0A' }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#FFFFFF' }}
         >
           {isLoading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
         </button>
       </form>
 
       <div className="mt-8 text-center">
-        <p className="text-[#6B6B6B] text-sm">
+        <p className="text-white/40 text-sm">
           Already have an account?{' '}
-          <Link href="/login" className="text-[#0A0A0A] hover:underline font-medium transition-all">
+          <Link href="/login" className="text-white/80 hover:text-white hover:underline font-medium transition-all">
             Sign in
           </Link>
         </p>
