@@ -7,11 +7,13 @@ import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js'
 import { 
   LayoutDashboard, 
-  ShoppingBag, 
   Users, 
   LogOut,
   Sparkles,
-  ChevronLeft
+  ChevronLeft,
+  Image,
+  Shirt,
+  ShoppingBag
 } from 'lucide-react'
 
 export default function AdminLayout({
@@ -64,7 +66,9 @@ export default function AdminLayout({
 
   const navItems = [
     { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
-    { href: '/admin/dresses', icon: ShoppingBag, label: 'Manage Dresses' },
+    { href: '/admin/men', icon: Shirt, label: "Men's Collection" },
+    { href: '/admin/women', icon: ShoppingBag, label: "Women's Collection" },
+    { href: '/admin/banners', icon: Image, label: 'Manage Banners' },
     { href: '/admin/users', icon: Users, label: 'Manage Users' },
   ]
 

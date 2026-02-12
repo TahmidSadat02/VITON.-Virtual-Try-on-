@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Users, ShoppingBag, Sparkles, TrendingUp } from 'lucide-react'
+import { Users, ShoppingBag, Sparkles, TrendingUp, Image, Shirt } from 'lucide-react'
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState({
@@ -135,27 +135,53 @@ export default function AdminDashboardPage() {
         <h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <a
-            href="/admin/dresses"
-            className="p-4 rounded-lg transition-all hover:scale-[1.02]"
-            style={{
-              background: 'rgba(192, 132, 252, 0.06)',
-              border: '1px solid rgba(192, 132, 252, 0.15)',
-            }}
-          >
-            <ShoppingBag className="h-8 w-8 text-purple-400 mb-2" />
-            <h3 className="font-semibold text-white">Manage Dresses</h3>
-            <p className="text-sm text-white/40 mt-1">Add, edit, or remove dresses</p>
-          </a>
-          
-          <a
-            href="/admin/users"
+            href="/admin/men"
             className="p-4 rounded-lg transition-all hover:scale-[1.02]"
             style={{
               background: 'rgba(96, 165, 250, 0.06)',
               border: '1px solid rgba(96, 165, 250, 0.15)',
             }}
           >
-            <Users className="h-8 w-8 text-blue-400 mb-2" />
+            <Shirt className="h-8 w-8 text-blue-400 mb-2" />
+            <h3 className="font-semibold text-white">Men&apos;s Collection</h3>
+            <p className="text-sm text-white/40 mt-1">Add, edit, or remove men&apos;s items</p>
+          </a>
+
+          <a
+            href="/admin/women"
+            className="p-4 rounded-lg transition-all hover:scale-[1.02]"
+            style={{
+              background: 'rgba(244, 114, 182, 0.06)',
+              border: '1px solid rgba(244, 114, 182, 0.15)',
+            }}
+          >
+            <ShoppingBag className="h-8 w-8 text-pink-400 mb-2" />
+            <h3 className="font-semibold text-white">Women&apos;s Collection</h3>
+            <p className="text-sm text-white/40 mt-1">Add, edit, or remove women&apos;s items</p>
+          </a>
+          
+          <a
+            href="/admin/banners"
+            className="p-4 rounded-lg transition-all hover:scale-[1.02]"
+            style={{
+              background: 'rgba(251, 191, 36, 0.06)',
+              border: '1px solid rgba(251, 191, 36, 0.15)',
+            }}
+          >
+            <Image className="h-8 w-8 text-yellow-400 mb-2" />
+            <h3 className="font-semibold text-white">Manage Banners</h3>
+            <p className="text-sm text-white/40 mt-1">Update hero banners & slides</p>
+          </a>
+
+          <a
+            href="/admin/users"
+            className="p-4 rounded-lg transition-all hover:scale-[1.02]"
+            style={{
+              background: 'rgba(192, 132, 252, 0.06)',
+              border: '1px solid rgba(192, 132, 252, 0.15)',
+            }}
+          >
+            <Users className="h-8 w-8 text-purple-400 mb-2" />
             <h3 className="font-semibold text-white">Manage Users</h3>
             <p className="text-sm text-white/40 mt-1">View and manage user accounts</p>
           </a>

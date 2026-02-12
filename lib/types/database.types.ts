@@ -163,6 +163,44 @@ export interface Database {
           created_at?: string
         }
       }
+      banners: {
+        Row: {
+          id: string
+          title: string
+          subtitle: string | null
+          image_url: string
+          link_url: string | null
+          gender: 'men' | 'women' | 'both'
+          is_active: boolean
+          sort_order: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          subtitle?: string | null
+          image_url: string
+          link_url?: string | null
+          gender?: 'men' | 'women' | 'both'
+          is_active?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          subtitle?: string | null
+          image_url?: string
+          link_url?: string | null
+          gender?: 'men' | 'women' | 'both'
+          is_active?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }

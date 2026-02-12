@@ -11,6 +11,7 @@ export default function WomenPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [products, setProducts] = useState<any[]>([])
+  const [activeCategory, setActiveCategory] = useState('all')
   const supabase = createClient()
 
   useEffect(() => {
@@ -25,8 +26,8 @@ export default function WomenPage() {
         .from('dresses')
         .select('*')
         .eq('is_visible', true)
+        .eq('gender', 'women')
         .order('is_featured', { ascending: false })
-        .limit(8)
       
       setProducts(data || [])
       setIsLoading(false)
@@ -34,6 +35,38 @@ export default function WomenPage() {
 
     fetchProducts()
   }, [router])
+
+  // Listen for hash changes from navbar clicks
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase()
+      if (hash) {
+        setActiveCategory(hash)
+        const el = document.getElementById('products-section')
+        if (el && hash !== 'all') {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }
+    }
+
+    handleHash()
+    window.addEventListener('hashchange', handleHash)
+    return () => window.removeEventListener('hashchange', handleHash)
+  }, [])
+
+  // Get unique categories from products
+  const categories = [...new Set(products.map(p => p.category))].sort()
+
+  // Filter products based on active category
+  const filteredProducts = activeCategory === 'all'
+    ? products
+    : products.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase())
+
+  // Group products by category for "All" view
+  const groupedProducts = categories.reduce((acc, cat) => {
+    acc[cat] = products.filter(p => p.category === cat)
+    return acc
+  }, {} as Record<string, any[]>)
 
   if (isLoading) {
     return (
@@ -61,42 +94,106 @@ export default function WomenPage() {
       <HeroSection gender="women" />
 
       {/* Products Section */}
-      <div className="relative py-20">
+      <div id="products-section" className="relative py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="text-xs tracking-[0.3em] text-white/40 uppercase mb-4">NEW ARRIVALS</p>
-            <h2 className="text-4xl md:text-5xl font-light text-white playfair">
-              Discover Our Collection
-            </h2>
+
+          {/* Category Filter Tabs */}
+          <div className="flex items-center justify-center gap-2 md:gap-3 mb-16 flex-wrap">
+            {['All', ...categories].map((cat) => {
+              const isActive = activeCategory === cat.toLowerCase()
+              return (
+                <button
+                  key={cat}
+                  onClick={() => {
+                    setActiveCategory(cat.toLowerCase())
+                    window.history.replaceState(null, '', `#${cat.toLowerCase()}`)
+                  }}
+                  className={`px-5 py-2 text-[11px] tracking-[0.2em] uppercase rounded-full transition-all duration-300 font-medium ${
+                    isActive ? 'text-[#0A0A0A] scale-105' : 'text-white/50 hover:text-white/80'
+                  }`}
+                  style={isActive ? {
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    boxShadow: '0 4px 20px rgba(255, 255, 255, 0.15)',
+                  } : {
+                    background: 'rgba(255, 255, 255, 0.06)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                  }}
+                >
+                  {cat}
+                </button>
+              )
+            })}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                category={product.category}
-                price={product.price}
-                image={product.image_url}
-                gender="women"
-                index={index}
-              />
-            ))}
-          </div>
-
-          {/* View All Button - Glass */}
-          <div className="text-center mt-16">
-            <button className="px-12 py-4 text-sm tracking-[0.3em] uppercase font-light text-white/80 rounded-full transition-all duration-500 hover:scale-105 hover:text-white"
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-              }}>
-              VIEW ALL
-            </button>
-          </div>
+          {/* ALL view — grouped by category */}
+          {activeCategory === 'all' ? (
+            <div className="space-y-20">
+              {categories.map((cat) => (
+                <div key={cat} id={cat.toLowerCase()}>
+                  <div className="flex items-center justify-between mb-8">
+                    <div>
+                      <p className="text-xs tracking-[0.3em] text-white/40 uppercase mb-2">Category</p>
+                      <h2 className="text-3xl md:text-4xl font-light text-white playfair">{cat}</h2>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setActiveCategory(cat.toLowerCase())
+                        window.history.replaceState(null, '', `#${cat.toLowerCase()}`)
+                      }}
+                      className="text-[11px] tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors font-medium"
+                    >
+                      View All →
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {groupedProducts[cat]?.map((product: any, index: number) => (
+                      <ProductCard
+                        key={product.id}
+                        id={product.id}
+                        name={product.name}
+                        category={product.category}
+                        price={product.price}
+                        image={product.image_url}
+                        gender="women"
+                        index={index}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Single category view */
+            <div>
+              <div className="text-center mb-12">
+                <p className="text-xs tracking-[0.3em] text-white/40 uppercase mb-3">
+                  {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
+                </p>
+                <h2 className="text-3xl md:text-4xl font-light text-white playfair capitalize">
+                  {activeCategory}
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {filteredProducts.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    name={product.name}
+                    category={product.category}
+                    price={product.price}
+                    image={product.image_url}
+                    gender="women"
+                    index={index}
+                  />
+                ))}
+              </div>
+              {filteredProducts.length === 0 && (
+                <div className="text-center py-20">
+                  <p className="text-white/40 font-light">No items found in this category</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
